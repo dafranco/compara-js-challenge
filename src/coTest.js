@@ -1,3 +1,7 @@
+const calculators = require('./priceCalculators');
+
+const MegaCoverageCalculator = calculators.MegaCoverageCalculator;
+
 class Product {
   constructor(name, sellIn, price) {
     this.name = name;
@@ -10,8 +14,15 @@ class CarInsurance {
   constructor(products = []) {
     this.products = products;
   }
+
   updatePrice() {
     for (var i = 0; i < this.products.length; i++) {
+      var current_product = this.products[i];
+      var calculator = this.getCalculator(current_product)
+      if (this.getCalculator(current_product) != null) {
+        calculator.updateAmount()
+        calculator.updateSellIn()
+      }
       if (this.products[i].name != 'Full Coverage' && this.products[i].name != 'Special Full Coverage') {
         if (this.products[i].price > 0) {
           if (this.products[i].name != 'Mega Coverage') {
@@ -58,6 +69,23 @@ class CarInsurance {
     }
 
     return this.products;
+  }
+
+  getCalculator(product) {
+    switch(product.name) {
+      case 'Full Coverage':
+        return null;
+        break;
+      case 'Mega Coverage':
+        return new MegaCoverageCalculator(product);
+        break;
+      case 'Special Full Coverage':
+        return null;
+        break;
+      case 'Super Sale':
+        return null;
+        break;
+    }
   }
 }
 
