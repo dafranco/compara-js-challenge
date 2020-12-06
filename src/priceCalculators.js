@@ -52,8 +52,23 @@ class FullCoverageCalculator extends BaseCalculator {
   }
 }
 
+class SpecialFullCoverageCalculator extends BaseCalculator {
+
+  getNewPrice() {
+   if (this.product.sellIn > 10){
+      return this.product.price + 1
+    } else if (this.product.sellIn <= 10 && this.product.sellIn > 5){
+      return this.product.price + 2
+    } else if (this.product.sellIn <= 5 && this.product.sellIn > 0) {
+      return this.product.price + 3
+    } else {
+      return 0
+    }
+  }
+}
 module.exports = {
   BaseCalculator,
   MegaCoverageCalculator,
-  FullCoverageCalculator
+  FullCoverageCalculator,
+  SpecialFullCoverageCalculator
 }
