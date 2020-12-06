@@ -43,12 +43,17 @@ class MegaCoverageCalculator extends BaseCalculator {
 
 
 class FullCoverageCalculator extends BaseCalculator {
-  getNewPrice(){
-    this.product.price + 1
+  getNewPrice() {
+    if (this.product.sellIn < 0) {
+      return this.product.price + 2
+    } else{
+      return this.product.price + 1
+    }
   }
 }
 
 module.exports = {
   BaseCalculator,
-  MegaCoverageCalculator
+  MegaCoverageCalculator,
+  FullCoverageCalculator
 }
