@@ -21,7 +21,7 @@ describe("MegaCoverageCalculator", function() {
 
   describe("#price", function(){
     it("should not update product price", function(){
-      calculator.updateAmount()
+      calculator.updatePrice()
       expect(product.price).equal(PRICE)
     })
   })

@@ -20,7 +20,7 @@ class CarInsurance {
       var current_product = this.products[i];
       var calculator = this.getCalculator(current_product)
       if (this.getCalculator(current_product) != null) {
-        calculator.updateAmount()
+        calculator.updatePrice()
         calculator.updateSellIn()
       }
       if (this.products[i].name != 'Full Coverage' && this.products[i].name != 'Special Full Coverage') {
