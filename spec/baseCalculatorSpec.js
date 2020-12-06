@@ -9,6 +9,24 @@ describe("BaseCalculator",function() {
   const INITIAL_SELL_IN = 30;
   const INITIAL_PRICE = 60;
 
+  describe("#getMinPrice", function(){
+    it("should return 0", function(){
+      product = new Product('I\'m a test product', INITIAL_SELL_IN, INITIAL_PRICE)
+      calculator = new BaseCalculator(product);
+
+      expect(calculator.getMinPrice()).equal(0)
+    })
+  })
+
+  describe("#getMaxPrice", function(){
+    it("should return 50", function(){
+      product = new Product('I\'m a test product', INITIAL_SELL_IN, INITIAL_PRICE)
+      calculator = new BaseCalculator(product);
+
+      expect(calculator.getMaxPrice()).equal(50)
+    })
+  })
+
   describe("#getNewPrice", function() {
     beforeEach(function() {
       product = new Product('I\'m a test product', INITIAL_SELL_IN, INITIAL_PRICE)
