@@ -27,19 +27,14 @@ class CarInsurance {
     switch(product.name) {
       case 'Full Coverage':
         return new FullCoverageCalculator(product);
-        break;
       case 'Mega Coverage':
         return new MegaCoverageCalculator(product);
-        break;
       case 'Special Full Coverage':
         return new SpecialFullCoverageCalculator(product);
-        break;
       case 'Super Sale':
         return new SuperSaleCalculator(product);
-        break;
       default:
         return new BaseCalculator(product);
-        break;
     }
   }
 }
