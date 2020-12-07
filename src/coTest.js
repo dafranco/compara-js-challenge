@@ -1,6 +1,4 @@
-const calculators = require('./priceCalculators');
-
-const MegaCoverageCalculator = calculators.MegaCoverageCalculator;
+const { MegaCoverageCalculator, FullCoverageCalculator, SpecialFullCoverageCalculator, SuperSaleCalculator, BaseCalculator } = require('./priceCalculators');
 
 class Product {
   constructor(name, sellIn, price) {
@@ -17,55 +15,9 @@ class CarInsurance {
 
   updatePrice() {
     for (var i = 0; i < this.products.length; i++) {
-      var current_product = this.products[i];
-      var calculator = this.getCalculator(current_product)
-      if (this.getCalculator(current_product) != null) {
-        calculator.updatePrice()
-        calculator.updateSellIn()
-      }
-      if (this.products[i].name != 'Full Coverage' && this.products[i].name != 'Special Full Coverage') {
-        if (this.products[i].price > 0) {
-          if (this.products[i].name != 'Mega Coverage') {
-            this.products[i].price = this.products[i].price - 1;
-          }
-        }
-      } else {
-        if (this.products[i].price < 50) {
-          this.products[i].price = this.products[i].price + 1;
-          if (this.products[i].name == 'Special Full Coverage') {
-            if (this.products[i].sellIn < 11) {
-              if (this.products[i].price < 50) {
-                this.products[i].price = this.products[i].price + 1;
-              }
-            }
-            if (this.products[i].sellIn < 6) {
-              if (this.products[i].price < 50) {
-                this.products[i].price = this.products[i].price + 1;
-              }
-            }
-          }
-        }
-      }
-      if (this.products[i].name != 'Mega Coverage') {
-        this.products[i].sellIn = this.products[i].sellIn - 1;
-      }
-      if (this.products[i].sellIn < 0) {
-        if (this.products[i].name != 'Full Coverage') {
-          if (this.products[i].name != 'Special Full Coverage') {
-            if (this.products[i].price > 0) {
-              if (this.products[i].name != 'Mega Coverage') {
-                this.products[i].price = this.products[i].price - 1;
-              }
-            }
-          } else {
-            this.products[i].price = this.products[i].price - this.products[i].price;
-          }
-        } else {
-          if (this.products[i].price < 50) {
-            this.products[i].price = this.products[i].price + 1;
-          }
-        }
-      }
+      var calculator = this.getCalculator(this.products[i])
+      calculator.updatePrice()
+      calculator.updateSellIn()
     }
 
     return this.products;
@@ -74,16 +26,19 @@ class CarInsurance {
   getCalculator(product) {
     switch(product.name) {
       case 'Full Coverage':
-        return null;
+        return new FullCoverageCalculator(product);
         break;
       case 'Mega Coverage':
         return new MegaCoverageCalculator(product);
         break;
       case 'Special Full Coverage':
-        return null;
+        return new SpecialFullCoverageCalculator(product);
         break;
       case 'Super Sale':
-        return null;
+        return new SuperSaleCalculator(product);
+        break;
+      default:
+        return new BaseCalculator(product);
         break;
     }
   }
