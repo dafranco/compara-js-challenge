@@ -14,9 +14,9 @@ describe("FullCoverageCalculator",function() {
     it('should increment price by 1 if sell in > 0 ', function(){
       expect(calculator.getNewPrice()).equal(INITIAL_PRICE + 1);
     })
-    it('should increment price by 1 if sell in is 0 ', function(){
+    it('should increment price by 2 if sell in is 0 ', function(){
       product.sellIn = 0;
-      expect(calculator.getNewPrice()).equal(INITIAL_PRICE + 1);
+      expect(calculator.getNewPrice()).equal(INITIAL_PRICE + 2);
     })
     it('should increment price by 2 if sell in < 0', function(){
       product.sellIn = -1;
