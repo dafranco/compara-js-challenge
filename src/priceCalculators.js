@@ -12,7 +12,7 @@ class BaseCalculator {
   }
 
   getNewPrice() {
-    if (this.product.sellIn < 0) {
+    if (this.product.sellIn <= 0) {
       return this.product.price - 2
     } else{
       return this.product.price - 1
@@ -44,7 +44,7 @@ class MegaCoverageCalculator extends BaseCalculator {
 
 class FullCoverageCalculator extends BaseCalculator {
   getNewPrice() {
-    if (this.product.sellIn < 0) {
+    if (this.product.sellIn <= 0) {
       return this.product.price + 2
     } else{
       return this.product.price + 1
@@ -66,9 +66,20 @@ class SpecialFullCoverageCalculator extends BaseCalculator {
     }
   }
 }
+
+class SuperSaleCalculator extends BaseCalculator{
+  getNewPrice() {
+    if (this.product.sellIn < 0) {
+      return this.product.price - 4
+    } else{
+      return this.product.price - 2
+    }
+  }
+}
 module.exports = {
   BaseCalculator,
   MegaCoverageCalculator,
   FullCoverageCalculator,
-  SpecialFullCoverageCalculator
+  SpecialFullCoverageCalculator,
+  SuperSaleCalculator
 }
